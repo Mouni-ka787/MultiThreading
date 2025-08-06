@@ -1,4 +1,3 @@
-package MultiThreading.MultiThreading1;
 import java.io.IOException;
     import java.io.PrintWriter;
     import java.net.ServerSocket;
@@ -8,8 +7,10 @@ import java.io.IOException;
     public class Server {
         public Consumer<Socket> getConsumer() {
             return (clientSocket) -> {
-                try (PrintWriter toSocket = new PrintWriter(clientSocket.getOutputStream(), true)) {
-                    toSocket.println("Hello from server " + clientSocket.getInetAddress());
+                try (PrintWriter toSocket = new PrintWriter(clientSocket.getOutputStream())) {
+                    toSocket.println("Hello from the server");
+                    toSocket.close();
+                    clientSocket.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -22,7 +23,7 @@ import java.io.IOException;
             
             try {
                 ServerSocket serverSocket = new ServerSocket(port);
-                serverSocket.setSoTimeout(70000);
+                serverSocket.setSoTimeout(10000);
                 System.out.println("Server is listening on port " + port);
                 while (true) {
                     Socket clientSocket = serverSocket.accept();
@@ -39,4 +40,4 @@ import java.io.IOException;
     }
     
     
-}
+

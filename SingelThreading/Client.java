@@ -1,4 +1,3 @@
-package MultiThreading.SingelThreading;
 
 
 import java.io.BufferedReader;
@@ -16,9 +15,9 @@ public class Client {
         int port = 8010;
         InetAddress address = InetAddress.getByName("localhost");
         Socket socket = new Socket(address, port);
-        PrintWriter toSocket = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter toSocket = new PrintWriter(socket.getOutputStream());
         BufferedReader fromSocket = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        toSocket.println("Hello World from client "+socket.getLocalSocketAddress());
+        toSocket.println("Hello World from client ");
         String line = fromSocket.readLine();
         System.out.println("Response from the socket is :" + line);
         toSocket.close();
